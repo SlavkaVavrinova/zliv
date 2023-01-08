@@ -1,0 +1,39 @@
+
+.bg-primaryCss {
+    background-color: #11473E;
+}
+
+.bg-secondaryCss {
+    background-color: #FFE090;
+}
+
+.bg-bodyCss {
+    background-color: #6AA599;
+}
+
+.text-primaryCss {
+    color: #11473E;
+}
+
+.text-secondaryCss {
+    color: #d1e7dd;
+}
+
+.border-pink {
+    border: 1px solid #582c3e;
+}
+
+form {
+    max-width: 700px
+}
+
+.btn-primary {
+    color: #11473E;
+    background-color: #CCA43B;
+    border: none;
+}
+
+.btn-primary:hover {
+    color: #11473E;
+    background-color: #FFE090;
+}

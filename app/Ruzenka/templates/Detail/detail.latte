@@ -1,0 +1,44 @@
+{block content}
+
+
+    <main class="form-signin container ">
+        <div class="bg-primaryCss p-2">
+
+            <h1>Detail Rezervace</h1>
+
+    <div class="bg-primaryCss p-2">
+
+    <table class="table table-success  m-0 fs-6">
+<tbody>
+
+    <tr>
+    <tr n:foreach="$selectedReservation as $reservationKey => $reservationValue">
+    <th scope="row">{$reservationKey}</th>
+    <td>{$reservationValue}</td>
+
+</tr>
+
+
+
+
+
+
+
+    </tbody>
+    </table>
+    <div class="text-center">
+        <a n:href="Detail:edit, $id" class="btn btn-primary bg-secondaryCss text-primaryCss">Upravit</a>
+        <a n:href="delete!, $id" class="btn btn-danger">Smazat</a>
+
+    </div>
+{*    {control reservationsForm}*}
+    <div class="text-center">
+        <a n:href="Reservations:reservations">
+            <button class="btn btn-primary bg-secondaryCss  mt-2 text-primaryCss ">← zpět na rezervace</button>
+        </a>
+    </div>
+
+
+
+</main>
+{/block}

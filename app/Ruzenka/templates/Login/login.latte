@@ -1,0 +1,55 @@
+{block content}
+	<div class="container-fluid bg-bodyCss vh-100 pt-5">
+		<main class="form-signin container ">
+<form n:name="loginForm" class="bg-primaryCss p-5 text-center shadow-lg rounded ms-auto me-auto">
+	<img class="mb-4 m-3" src="{$basePath}/assets/logo.svg" alt="" width="72" height="57">
+				<h1 class="h3 mb-3 text-light text-center fw-normal">Administrace Chaty Růženka</h1>
+
+<ul class="error" n:ifcontent>
+<li n:foreach="$form->getOwnErrors() as $error">{$error}</li>
+	</ul>
+
+
+	<table>
+		<tr class="required">
+			<th>{label username/}</th>
+
+			<td>{input username}
+				<span class="error" n:ifcontent>{inputError username}</span></td>
+		</tr>
+
+		<tr class="required">
+			<th>{label password/}</th>
+
+			<td>{input password}
+				<span class="error" n:ifcontent>{inputError password}</span></td>
+		</tr>
+
+		<tr>
+			<th></th>
+
+			<td>{input send}</td>
+		</tr>
+	</table>
+
+	</form>
+{*			<form class="bg-primaryCss p-5 text-center shadow-lg rounded ms-auto me-auto">*}
+{*				<img class="mb-4 m-3" src="{$basePath}/assets/logo.svg" alt="" width="72" height="57">*}
+{*				<h1 class="h3 mb-3 text-light text-center fw-normal">Administrace Chaty Růženka</h1>*}
+{*				<div class="form-floating m-5">*}
+{*					<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">*}
+{*					<label for="floatingInput">Email address</label>*}
+{*				</div>*}
+{*				<div class="form-floating m-5">*}
+{*					<input type="password" class="form-control" id="floatingPassword" placeholder="Password">*}
+{*					<label for="floatingPassword">Password</label>*}
+{*				</div>*}
+{*				<button class="btn btn-lg btn-primary bg-secondaryCss text-primaryCss ms-auto me-auto w-50"*}
+{*						type="submit">Přihlásit*}
+{*				</button>*}
+{*			</form>*}
+		</main>
+	</div>
+
+
+{/block}
