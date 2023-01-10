@@ -2,7 +2,6 @@
 
 namespace App\Ruzenka\Presenters;
 
-use App\Forms\FormFactory;
 use App\Forms\ReservationsForm\ReservationsForm;
 use App\Forms\ReservationsForm\ReservationsFormFactory;
 use App\Forms\ReservationsForm\RezervationsDbFormData;
@@ -14,51 +13,26 @@ class DetailPresenter extends \Nette\Application\UI\Presenter
     use RequireLoggedUser;
 
     private ReservationsFacade $reservationsFacade;
-    private FormFactory $formFactory;
+    private ReservationsFormFactory $reservationsFormFactory;
 
-    public function __construct(FormFactory $formFactory, ReservationsFacade $reservationsFacade)
+    public function __construct(ReservationsFormFactory $reservationsFormFactory, ReservationsFacade $reservationsFacade)
     {
-        $this->formFactory = $formFactory;
+        $this->reservationsFormFactory = $reservationsFormFactory;
         $this->reservationsFacade = $reservationsFacade;
     }
 
 
-    protected function createComponentReservationsForm(): Form
+    protected function createComponentReservationsForm(): ReservationsForm
     {
-        //$form = $this->reservationsFormFactory->create();
-
-        $form = $this->formFactory->create();
-
-        $form->addInteger('id', 'Id:');
-        $form->addText('Termin', 'Termin:');
-        $form->addText('Stav', 'Stav:')
-        ->addRule(Form::MAX_LENGTH, null, 255);
-        $form->addText('Agentura', 'Agentura:')
-            ->addRule(Form::MAX_LENGTH, null, 255);
-        $form->addText('Jmeno', 'Jmeno:')
-            ->addRule(Form::MAX_LENGTH, null, 255);
-        $form->addTextArea('Info', 'Info:');
-        $form->addTextArea('Cena', 'Cena:');
-        $form->addTextArea('Zaplaceno', 'Zaplaceno:');
-        $form->addTextArea('orderID', 'OrderID:');
-        $form->addTextArea('Email', 'Email:');
-        $form->addTextArea('emailDate', 'EmailDate:');
-        $form->addTextArea('Telefon', 'Telefon:');
-        $form->addTextArea('arrivalTime', 'ArrivalTime:');
-        $form->addSubmit('send', 'Uložit');
-        $form->addProtection();
-
-        $form->onSuccess[] = $this->ReservationsFormSucceeded(...);
-
+        $form = $this->reservationsFormFactory->create();
+        $form->onSuccess[] = function () {
+            $this->flashMessage('Rezervace uložena');
+            $this->redirect('Reservations:Reservations');
+        };
         return $form;
     }
 
-    public function ReservationsFormSucceeded($form, RezervationsDbFormData $reservationsData)
-    {
-        $this->reservationsFacade->updateReservation($reservationsData);
-        $this->flashMessage('Rezervace uložena');
-        $this->redirect('Reservations:Reservations');
-    }
+    
 
 
     public function renderDetail($id): void

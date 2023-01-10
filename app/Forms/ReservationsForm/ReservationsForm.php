@@ -2,20 +2,26 @@
 
 namespace App\Forms\ReservationsForm;
 
-use App\Forms\FormFactory;
+use App\Forms\ReservationsForm\ReservationsFormFactory;
 use App\Model\ReservationsFacade;
+use App\Forms\BaseForm;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\Presenter;
 
-class ReservationsForm
+class ReservationsForm extends BaseForm
 {
     private ReservationsFacade $reservationsFacade;
     private ReservationsFormFactory $reservationsFormFactory;
+
+    /** @var callable[] */
+    public $onSuccess = [];
 
     public function __construct(ReservationsFacade $reservationsFacade, ReservationsFormFactory $reservationsFormFactory)
     {
         $this->reservationsFacade = $reservationsFacade;
         $this->reservationsFormFactory = $reservationsFormFactory;
 
+        $this->addInteger('id', 'Id:');
         $this->addText('Termin', 'Termin:')
             ->setRequired()
             ->addRule(Form::MAX_LENGTH, null, 255);
@@ -40,10 +46,7 @@ class ReservationsForm
 
     public function ReservationsFormSucceeded($form, RezervationsDbFormData $reservationsData)
     {
-        // $reservationsData->idMojeProUlozeni = $this->getUser()->getId();
-        $this->reservationsFacade->addReservation($reservationsData);
-        $this->flashMessage('Rezervace uložena');
-        $this->redirect('Reservations:Reservations');
+        $this->reservationsFacade->updateReservation($reservationsData);
     }
 
 }
